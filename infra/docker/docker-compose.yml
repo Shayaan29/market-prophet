@@ -1,0 +1,67 @@
+# ─────────────────────────────────────────────────────────────────
+# Docker Compose — full local stack
+#
+# Usage:
+#   docker-compose up --build          start everything
+#   docker-compose up backend          start only backend
+#   docker-compose down -v             stop and remove volumes
+# ─────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/marketprophet
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ../../backend/app/ml/exports:/app/ml/exports  # mount trained models
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: marketprophet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

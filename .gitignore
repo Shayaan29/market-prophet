@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+.pytest_cache/
+
+# Environment
+.env
+*.env.local
+
+# ML Models (too large for git — use cloud storage or Git LFS)
+*.onnx
+*.pkl
+*.h5
+# ...except the trained models actually needed at runtime (small enough to commit)
+!backend/app/ml/exports/bitcoin_lstm.h5
+
+# Database
+*.db
+*.sqlite
+
+# Node
+node_modules/
+frontend/dist/
+frontend/build/
+.next/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log

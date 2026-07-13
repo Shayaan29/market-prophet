@@ -1,0 +1,40 @@
+# ── Web Framework ──────────────────────────────────────────────
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+
+# ── Database ───────────────────────────────────────────────────
+sqlalchemy==2.0.30
+alembic==1.13.1           # DB migrations
+psycopg2-binary==2.9.9    # PostgreSQL driver (prod)
+aiosqlite==0.20.0         # SQLite async driver (dev)
+
+# ── Cache ──────────────────────────────────────────────────────
+redis==5.0.4
+hiredis==2.3.2            # faster Redis parser
+
+# ── ML / Data ──────────────────────────────────────────────────
+tensorflow>=2.20.0
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2       # preprocessing (MinMaxScaler etc.)
+
+# ── HTTP / External APIs ───────────────────────────────────────
+httpx==0.27.0             # async HTTP client
+tenacity==8.3.0           # retry logic for API calls
+
+# ── Config & Security ──────────────────────────────────────────
+pydantic-settings==2.2.1  # typed env var loading
+python-dotenv==1.0.1
+passlib[bcrypt]==1.7.4    # password hashing (for future auth)
+
+# ── CORS ───────────────────────────────────────────────────────
+# Built into FastAPI — no extra package needed
+
+# ── Dev / Testing ──────────────────────────────────────────────
+pytest==8.2.0
+pytest-asyncio==0.23.6
+httpx==0.27.0             # test client
+black==24.4.2             # formatter
+flake8==7.0.0             # linter
+isort==5.13.2             # import sorter
