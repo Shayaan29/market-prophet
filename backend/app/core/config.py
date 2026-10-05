@@ -18,7 +18,7 @@ class Settings(BaseSettings):
 
     # ── API ────────────────────────────────────────────────────
     API_V1_PREFIX: str = "/api/v1"
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:5173"]  # React dev server
+    ALLOWED_ORIGINS: list[str] = [ "http://localhost:5173"]  # React dev server
 
     # ── Database ───────────────────────────────────────────────
     DATABASE_URL: str = "sqlite+aiosqlite:///./marketprophet.db"

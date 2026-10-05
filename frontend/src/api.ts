@@ -53,6 +53,7 @@ export interface MarketCoin {
   market_cap: number
   market_cap_rank: number | null
   price_change_percentage_24h: number | null
+
 }
 
 // Fetch top coins by market cap, for browsing (no prediction model required)
